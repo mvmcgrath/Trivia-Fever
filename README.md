@@ -1,6 +1,6 @@
 # 💡 Trivia Fever
 
-Trivia Fever is a fullstack web application that allows users to play trivia games, keep track of scores, and challenge friends. Trivia Fever uses the MERN tech stack.
+Trivia Fever is a fullstack web application that allows users to play trivia games, keep track of scores, and challenge friends. Trivia Fever uses the MERN stack.
 
 ## 🚀 Installation and Usage
 

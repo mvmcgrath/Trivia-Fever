@@ -4,7 +4,7 @@ import firstScreenshot from '../assets/FirstScreenshot.png'
 import secondScreenshot from '../assets/SecondScreenshot.png'
 import thirdScreenshot from '../assets/ThirdScreenshot.png'
 
-const Body = () => {
+const Home = () => {
   return(
     <div>
       <div className="p-5 bg-secondary variant-dark">
@@ -44,7 +44,7 @@ const Body = () => {
           </Carousel.Item>
         </Carousel>
       </div>
-      <div className="bg-primary variant-dark text-white text-center p-3">
+      <div className="bg-primary variant-dark text-white text-center p-4">
         <h1>Features</h1>
       </div>
       <div className="bg-primary variant-dark text-white text-center p-2">
@@ -72,4 +72,4 @@ const Body = () => {
   )
 }
 
-export default Body
+export default Home
