@@ -7,7 +7,7 @@ import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid p-0">
       <Navigation />
 
       <Routes>

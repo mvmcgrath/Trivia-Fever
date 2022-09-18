@@ -1,7 +1,11 @@
 const Login = () => {
+  const topStyle = {
+    alignItems: 'center'
+  }
+
   return(
-    <div>
-      Login
+    <div style={topStyle}>
+      <h2>Login</h2>
     </div>
   )
 }
