@@ -1,19 +1,45 @@
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const Navigation = () => {
-  const linkStyle = {
-    color: 'white',
-    textDecoration: 'none'
-  }
+  const Bar = styled.div`
+    display: flex;
+    background-color: #393E41;
+    padding: 20px 10%;
+    font-size: 1.5em;
+    align-items: center;
+    flex: 1;
+    justify-content: space-evenly;
+  `
+
+  const LinkContainer = styled.div`
+    margin: 0px;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 1em;
+    flex-grow: 1;
+  `
+  const RightLinkContainer = styled(LinkContainer)`
+    justify-content: flex-end;
+  `
+
+  const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+  `
 
   return (
-    <span>
-      <Link style={linkStyle} to="/">Trivia Fever</Link>
-      <Link style={linkStyle} to="/">Home</Link>
-      <Link style={linkStyle} to="/game">Play</Link>
-      <Link style={linkStyle} to="/stats">Statistics</Link>
-      <Link style={linkStyle} to="/login">Login</Link>
-    </span>
+    <Bar>
+      <LinkContainer>
+        <StyledLink to="/">Trivia Fever</StyledLink>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/game">Play</StyledLink>
+        <StyledLink to="/stats">Statistics</StyledLink>
+      </LinkContainer>
+      <RightLinkContainer>
+        <StyledLink to="/login">Login</StyledLink>
+      </RightLinkContainer>
+    </Bar>
   )
 }
 
