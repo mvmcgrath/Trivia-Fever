@@ -5,22 +5,31 @@ const Home = () => {
     display: flex;
     background-color: #A67DB8;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 100px 0px;
+    justify-content: flex-start;
+    padding: 10% 0px;
     color: white;
+    row-gap: 5em;
   `
 
   const BottomContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 50px;
+    justify-content: space-between;
+    padding: 0px 10%;
+    background-color: red;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
   `
 
   const TextHeading = styled.h1`
-    font-size: 4em;
+    font-size: 10vw;
     margin: 0px;
+  `
+
+  const TextBlurb = styled.p`
+    font-size: 2vw;
   `
 
   const Header = styled.header`
@@ -32,16 +41,28 @@ const Home = () => {
     margin: 0px;
   `
 
+  const BottomSection = styled.div`
+    flex-basis: 100%;
+    font-size: 1vw;
+    justify-content: center;
+  `
+
+  const BottomHeader = styled.h2`
+    font-size: 2vw;
+  `
+
+  //Make trivia fever image for title page and navigation bar
+
   return(
     <BodyContainer>
       <Header>
         <TextHeading>Trivia Fever</TextHeading>
-        <p>The web browser trivia game anyone can play</p>
+        <TextBlurb>The web browser trivia game anyone can play</TextBlurb>
       </Header>
       <BottomContainer>
-        <div>
+        <BottomSection>
           <div>
-            <h1>Features</h1>
+            <BottomHeader>Features</BottomHeader>
           </div>
           <div>
             <table>
@@ -64,12 +85,18 @@ const Home = () => {
               </tbody>
             </table>
           </div>
-        </div>
-        <div>
+        </BottomSection>
+        <BottomSection>
           <div>
-            <h1>About</h1>
+            <BottomHeader>Question of the Day</BottomHeader>
+            <p>What is a good placeholder?</p>
           </div>
-        </div>
+        </BottomSection>
+        <BottomSection>
+          <div>
+            <BottomHeader>About</BottomHeader>
+          </div>
+        </BottomSection>
       </BottomContainer>
     </BodyContainer>
   )

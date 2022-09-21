@@ -10,6 +10,10 @@ const Navigation = () => {
     align-items: center;
     flex: 1;
     justify-content: space-evenly;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
   `
 
   const LinkContainer = styled.div`
