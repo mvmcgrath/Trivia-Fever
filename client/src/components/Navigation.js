@@ -5,14 +5,15 @@ const Navigation = () => {
   const Bar = styled.div`
     display: flex;
     background-color: #393E41;
-    padding: 20px 10%;
+    padding: 20px 200px;
     font-size: 1.5em;
     align-items: center;
     flex: 1;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       flex-direction: column;
+      font-size: 3em;
     }
   `
 
@@ -21,7 +22,7 @@ const Navigation = () => {
     display: flex;
     justify-content: flex-start;
     column-gap: 1em;
-    flex-grow: 1;
+    flex-basis: 100%
   `
   const RightLinkContainer = styled(LinkContainer)`
     justify-content: flex-end;

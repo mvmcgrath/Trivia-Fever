@@ -3,5 +3,15 @@ body {
   margin: 0px;
   padding: 0px;
   background-color: #A67DB8;
+}
+
+html {
   font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 8px;
+  }
 }
