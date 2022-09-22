@@ -1,21 +1,25 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-
-const LoginContainer = styled.div`
-  padding: 200px 700px;
-  color: white;
-`
+import { Container } from './StyleHelper'
 
 const LoginBox = styled.div`
   background-color: #393E41;
   text-align: center;
-  padding: 50px 50px 0px;
-  font-size: 2rem;
+  padding: 25px 150px 0px;
   border-radius: 25px;
+  margin-bottom: 20px;
+
+  @media (max-width: 1000px) {
+    padding: 25px 75px;
+  }
 `
 
 const LoginText = styled.div`
   font-size: 1.5rem;
+
+  @media (max-width: 1000px) {
+    font-size: 3rem;
+  }
 `
 
 const StyledInput = styled.input`
@@ -30,6 +34,10 @@ const StyledButton = styled.button`
   background-color: #393E41;
   color: white;
   border: 2px solid white;
+
+  @media (max-width: 1000px) {
+    font-size: 4rem;
+  }
 `
 
 const StyledHeader = styled.p`
@@ -43,12 +51,16 @@ const NotificationMessage = styled.p`
   visibility: hidden;
   margin-bottom: 5px;
   color: red;
+
+  @media (max-width: 1000px) {
+    font-size: 2.6rem;
+  }
 `
 
 const Login = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [notification, setNotification] = useState('g')
+  const [notification, setNotification] = useState('Placeholder')
 
 
   const addLogin = async (event) => {
@@ -67,7 +79,7 @@ const Login = ({ handleLogin }) => {
   }
 
   return(
-    <LoginContainer>
+    <Container>
       <LoginBox>
         <form onSubmit={addLogin}>
           <LoginText>
@@ -94,7 +106,7 @@ const Login = ({ handleLogin }) => {
         </form>
         <NotificationMessage>{notification}</NotificationMessage>
       </LoginBox>
-    </LoginContainer>
+    </Container>
   )
 }
 
