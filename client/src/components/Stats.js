@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Container } from './StyleHelper'
 
 const Table = styled.table`
-  font-size: 2rem;
+  font-size: 1.6rem;
   table-layout: auto;
   border-collapse: collapse;
   white-space: nowrap;

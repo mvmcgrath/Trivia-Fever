@@ -61,7 +61,7 @@ const NotificationMessage = styled.p`
 const Login = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [notification, setNotification] = useState('Placeholder')
+  const [notification, setNotification] = useState('Error: Incorrect username or password')
 
 
   const addLogin = async (event) => {

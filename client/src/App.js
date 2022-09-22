@@ -4,7 +4,7 @@ import Login from './components/Login'
 import GameSelect from './components/Game/GameSelect'
 import Play from './components/Game/Play'
 import Stats from './components/Stats'
-import Create from './components/Create'
+import Create from './components/Create/Create'
 
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'

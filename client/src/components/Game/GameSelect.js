@@ -41,7 +41,7 @@ const GameSelect = () => {
             <StyledLink to="/game/auto">Normal Questions</StyledLink>
           </div>
           <div>
-            <StyledLink to="/game/auto">User Questions</StyledLink>
+            <StyledLink to="/game/user">User Questions</StyledLink>
           </div>
         </SelectionFlex>
       </SelectionContainer>
