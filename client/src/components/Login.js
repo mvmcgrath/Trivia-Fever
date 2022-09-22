@@ -34,6 +34,7 @@ const StyledButton = styled.button`
   background-color: #393E41;
   color: white;
   border: 2px solid white;
+  cursor: pointer;
 
   @media (max-width: 1000px) {
     font-size: 4rem;

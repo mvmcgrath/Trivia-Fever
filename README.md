@@ -11,4 +11,4 @@ Trivia Fever is hosted live at WEBSITE HERE.
 Contributions, issues, and feature requests are all welcome.
 
 ## ⭐ License
-This project is [MIT](https://github.com/mm24642/Trivia-Fever/blob/main/LICENSE) licensed.
+This project is [MIT](https://github.com/mvmcgrath/Trivia-Fever/blob/main/LICENSE) licensed.

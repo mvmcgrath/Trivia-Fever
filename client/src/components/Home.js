@@ -77,7 +77,7 @@ const Home = () => {
             <LeftList>
               <li>Play games of trivia with thousands of possible questions!</li>
               <li>See detailed information about questions!</li>
-              <li>Create your own questions and games</li>
+              <li>Create your own questions and games!</li>
               <li>Keep track of your trivia statistics and rank overall!</li>
               <li>Become the best trivia player ever!</li>
             </LeftList>

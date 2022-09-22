@@ -1,8 +1,10 @@
 import Navigation from './components/Navigation'
 import Home from './components/Home'
 import Login from './components/Login'
-import Game from './components/Game'
+import GameSelect from './components/Game/GameSelect'
+import Play from './components/Game/Play'
 import Stats from './components/Stats'
+import Create from './components/Create'
 
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
@@ -30,6 +32,8 @@ const App = () => {
     }
   }, [])
 
+  //<Route path="/create" element={ user ? <Create /> : <Navigate to="/login" />} />
+
   return (
     <div>
       <Navigation user={user} />
@@ -37,7 +41,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={ user ? <Navigate to="/game" /> : <Login handleLogin={handleLogin} />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/game" element={<GameSelect />} />
+        <Route path="/game/:id" element={<Play />} />
         <Route path="/stats" element={<Stats />} />
       </Routes>
     </div>

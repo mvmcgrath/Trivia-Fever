@@ -37,8 +37,8 @@ const Navigation = () => {
     <Bar>
       <LinkContainer>
         <StyledLink to="/">Trivia Fever</StyledLink>
-        <StyledLink to="/">Home</StyledLink>
         <StyledLink to="/game">Play</StyledLink>
+        <StyledLink to="/create">Create</StyledLink>
         <StyledLink to="/stats">Statistics</StyledLink>
       </LinkContainer>
       <RightLinkContainer>

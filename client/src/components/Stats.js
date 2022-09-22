@@ -18,6 +18,8 @@ const TableContainer = styled.span`
   padding: 50px 300px 50px;
   background-color: #393E41;
   border-radius: 25px;
+  text-align: center;
+  font-size: 2rem;
 `
 
 const Stats = () => {
@@ -25,6 +27,7 @@ const Stats = () => {
     <div>
       <Container>
         <TableContainer>
+          <h1>High Scores</h1>
           <Table>
             <thead>
               <tr>
