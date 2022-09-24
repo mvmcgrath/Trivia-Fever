@@ -29,6 +29,7 @@ const StyledLink = styled(Link)`
   border: 3px solid white;
   padding: 20px;
   border-radius: 25px;
+  background-color: #4b5054;
 `
 
 const GameSelect = () => {

@@ -1,65 +1,51 @@
-import styled from 'styled-components'
 import { Container } from '../StyleHelper'
-import QuestionButton from './QuestionButton'
-
-const CreateContainer = styled.div`
-  padding: 50px;
-  background-color: #393E41;
-  border-radius: 25px;
-  text-align: center;
-  font-size: 2rem;
-  flex: 2;
-  margin: 0px 100px;
-`
-
-const ListContainer = styled.div`
-  padding: 50px;
-  background-color: #393E41;
-  text-align: center;
-  font-size: 2rem;
-  flex: 1;
-  margin: 0px 100px;
-  border-radius: 25px;
-`
-
-const QuestionFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 25px;
-  border-radius: 25px;
-`
-
-const QuestionContainer = styled.div`
-  padding: 0px 25px;
-  overflow-y: auto;
-  height: 500px;
-`
-
-const Header = styled.h2`
-  font-size: 2rem;
-  margin: 20px 0px;
-`
+import { useState, useEffect } from 'react'
+//import questionService from '../../services/question'
+import ListContainer from './ListContainer'
+import EditContainer from './EditContainer'
 
 const Create = () => {
-  const loadQuestion = (id) => {
-    console.log(id)
+  const [questions, setQuestions] = useState([])
+  const [editQuestion, setEditQuestion] = useState(null)
+
+  useEffect(() => {
+    //const returnedQuestions = await questionService.getAll()
+
+    const returnedQuestions = [
+      {
+        content: 'What is the capital of France?',
+        a: 'Paris',
+        b: 'Berlin',
+        c: 'London',
+        d: 'Tokyo',
+        difficulty: 'Medium',
+        category: 'Geography',
+        id: 2
+      },
+    ]
+
+    setQuestions(returnedQuestions)
+  }, [])
+
+  const loadQuestion = (question) => {
+    setEditQuestion(question)
+  }
+
+  const deleteQuestion = (question) => {
+    console.log('Delete!')
+    console.log(question)
+  }
+
+  const addQuestion = (question, newQuestion) => {
+    console.log('Add!')
+    console.log(question)
+    console.log(newQuestion)
   }
 
   return (
     <Container>
-      <ListContainer>
-        <Header>Questions</Header>
-        <QuestionFlex>
-          <QuestionContainer>
-            <QuestionButton id={0} text="What is the capital of France?" loadQuestion={loadQuestion} />
-          </QuestionContainer>
-        </QuestionFlex>
-      </ListContainer>
-      <CreateContainer>
-        <Header>Select a Question</Header>
-      </CreateContainer>
+      <ListContainer questions={questions} loadQuestion={loadQuestion} />
+      <EditContainer question={editQuestion} deleteQuestion={deleteQuestion} addQuestion={addQuestion} />
     </Container>
   )
 }

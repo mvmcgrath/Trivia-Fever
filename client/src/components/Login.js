@@ -31,17 +31,18 @@ const StyledButton = styled.button`
   width: 150px;
   font-size: 2rem;
   margin-top: 20px;
-  background-color: #393E41;
   color: white;
   border: 2px solid white;
   cursor: pointer;
+  border-radius: 25px;
+  background-color: #4b5054;
 
   @media (max-width: 1000px) {
     font-size: 4rem;
   }
 `
 
-const StyledHeader = styled.p`
+const StyledHeader = styled.label`
   margin: 0px;
 `
 

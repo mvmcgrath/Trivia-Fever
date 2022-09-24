@@ -3,24 +3,26 @@ import styled from 'styled-components'
 const StyledButton = styled.button`
   font-size: 1.5rem;
   border: 3px solid white;
-  border-radius: 25px;
-  background-color: #EC4E20;
+  border-radius: 10px;
+  background-color: #4b5054;
   padding: 10px;
   color: white;
-  max-width: 400px;
+  min-height: 58px;
+  width: 340px;
   overflow-wrap: break-word;
   cursor: pointer;
+  margin-bottom: 10px;
 `
 
-const QuestionButton = ({ loadQuestion, text, id }) => {
+const QuestionButton = ({ loadQuestion, question }) => {
 
   const handleClick = (event) => {
     event.preventDefault()
-    loadQuestion(id)
+    loadQuestion(question)
   }
 
   return(
-    <StyledButton onClick={handleClick} id={id}>{text}</StyledButton>
+    <StyledButton onClick={handleClick} id={question.id}>{question.content}</StyledButton>
   )
 }
 

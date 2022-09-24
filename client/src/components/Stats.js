@@ -7,6 +7,7 @@ const Table = styled.table`
   border-collapse: collapse;
   white-space: nowrap;
   text-align: center;
+  background-color: #4b5054;
 `
 
 const TableHeader = styled.th`
