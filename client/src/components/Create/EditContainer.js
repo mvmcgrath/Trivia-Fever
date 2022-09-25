@@ -13,6 +13,7 @@ const Container = styled.div`
   width: 900px;
   max-height: 600px;
   max-width: 900px;
+  border: 3px solid white;
 `
 
 const PropertyContainer = styled.div`
@@ -83,8 +84,9 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
   const [answerB, setAnswerB] = useState(question.b ? question.b : '')
   const [answerC, setAnswerC] = useState(question.c ? question.c : '')
   const [answerD, setAnswerD] = useState(question.d ? question.d : '')
-  const [category, setCategory] = useState(question.category ? question.category : '')
-  const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty : '')
+  const [category, setCategory] = useState(question.category ? question.category : 'General Knowledge')
+  const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty : 'Easy')
+  const [correct, setCorrect] = useState(question.correct ? question.correct : 'a')
 
   useEffect(() => {
     setContent(question.content ? question.content : '')
@@ -92,8 +94,9 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     setAnswerB(question.b ? question.b : '')
     setAnswerC(question.c ? question.c : '')
     setAnswerD(question.d ? question.d : '')
-    setCategory(question.category ? question.category : '')
-    setDifficulty(question.difficulty ? question.difficulty : '')
+    setCategory(question.category ? question.category : 'General Knowledge')
+    setDifficulty(question.difficulty ? question.difficulty : 'Easy')
+    setCorrect(question.correct ? question.correct : 'a')
   }, [question])
 
   const difficulties = ['Easy', 'Medium', 'Hard']
@@ -101,6 +104,7 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     'Entertainment: Video Games', 'Entertainment: Board Games','Science & Nature','Science: Computers','Science: Mathematics','Mythology','Sports','Geography',
     'History','Politics','Art', 'Celebrities','Animals','Vehicles','Entertainment: Comics','Science: Gadgets','Entertainment: Japanese Anime & Manga',
     'Entertainment: Cartoon & Animations']
+  const answerValues = ['a', 'b', 'c', 'd']
 
 
   const handleDelete = (event) => {
@@ -111,8 +115,9 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     setAnswerB('')
     setAnswerC('')
     setAnswerD('')
-    setCategory('')
-    setDifficulty('')
+    setCategory('General Knowledge')
+    setDifficulty('Easy')
+    setCorrect('a')
   }
 
   const handleSubmit = async (event) => {
@@ -125,7 +130,8 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
       'c': answerC,
       'd': answerD,
       category,
-      difficulty
+      difficulty,
+      correct
     }
 
     try {
@@ -143,19 +149,19 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
         <PropertyContainer>
           <CreateFlex>
             <div>
-              <StyledLabel>A</StyledLabel>
+              <StyledLabel>a</StyledLabel>
               <Answer type="text" value={answerA} name="AnswerA" id="answerA" onChange={({ target }) => setAnswerA(target.value)} />
             </div>
             <div>
-              <StyledLabel>B</StyledLabel>
+              <StyledLabel>b</StyledLabel>
               <Answer type="text" value={answerB} name="AnswerB" id="answerB" onChange={({ target }) => setAnswerB(target.value)} />
             </div>
             <div>
-              <StyledLabel>C</StyledLabel>
+              <StyledLabel>c</StyledLabel>
               <Answer type="text" value={answerC} name="AnswerC" id="answerC" onChange={({ target }) => setAnswerC(target.value)} />
             </div>
             <div>
-              <StyledLabel>D</StyledLabel>
+              <StyledLabel>d</StyledLabel>
               <Answer type="text" value={answerD} name="AnswerD" id="answerD" onChange={({ target }) => setAnswerD(target.value)} />
             </div>
           </CreateFlex>
@@ -173,6 +179,14 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
               <StyledSelect name="category" id="category" value={category === null ? 'General Knowledge' : category} onChange={({ target }) => setCategory(target.value)}>
                 {categories.map((cat, i) =>
                   <option key={i} value={cat}>{cat}</option>
+                )}
+              </StyledSelect>
+            </div>
+            <div>
+              <StyledLabel>Correct Answer</StyledLabel>
+              <StyledSelect name="correct" id="correct" value={correct === null ? 'a' : correct} onChange={({ target }) => setCorrect(target.value)}>
+                {answerValues.map((ans, i) =>
+                  <option key={i} value={ans}>{ans}</option>
                 )}
               </StyledSelect>
             </div>

@@ -15,6 +15,7 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   padding: 0px 100px;
   background-color: #393E41;
+  border: 3px solid white;
 
   @media (max-width: 1000px) {
     flex-direction: column;

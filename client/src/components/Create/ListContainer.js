@@ -13,6 +13,7 @@ const Container = styled.div`
   width: 900px;
   max-height: 600px;
   max-width: 900px;
+  border: 3px solid white;
 `
 
 const QuestionFlex = styled.div`
@@ -38,7 +39,7 @@ const Header = styled.h2`
 
 const ListContainer = ({ questions, loadQuestion }) => {
   const dummyQuestion = {
-    id: 0,
+    id: -1,
     content: 'New Question'
   }
 

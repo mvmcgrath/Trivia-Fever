@@ -30,6 +30,7 @@ const Create = () => {
         d: 'Tokyo',
         difficulty: 'Medium',
         category: 'Geography',
+        correct: 'a',
         id: 2
       },
     ]

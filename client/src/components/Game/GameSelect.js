@@ -8,6 +8,7 @@ const SelectionContainer = styled.div`
   border-radius: 25px;
   text-align: center;
   font-size: 2rem;
+  border: 3px solid white;
 
   @media (max-width: 1000px) {
     padding: 50px 100px 50px;

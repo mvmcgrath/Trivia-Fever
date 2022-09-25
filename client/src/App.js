@@ -2,7 +2,8 @@ import Navigation from './components/Navigation'
 import Home from './components/Home'
 import Login from './components/Login'
 import GameSelect from './components/Game/GameSelect'
-import Play from './components/Game/Play'
+import PlayAuto from './components/Game/PlayAuto'
+import PlayUser from './components/Game/PlayUser'
 import Stats from './components/Stats'
 import Create from './components/Create/Create'
 
@@ -43,7 +44,8 @@ const App = () => {
         <Route path="/login" element={ user ? <Navigate to="/game" /> : <Login handleLogin={handleLogin} />} />
         <Route path="/create" element={<Create />} />
         <Route path="/game" element={<GameSelect />} />
-        <Route path="/game/:id" element={<Play />} />
+        <Route path="/game/auto" element={<PlayAuto />} />
+        <Route path="/game/user" element={<PlayUser />} />
         <Route path="/stats" element={<Stats />} />
       </Routes>
     </div>

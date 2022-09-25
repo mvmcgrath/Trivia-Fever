@@ -21,6 +21,7 @@ const TableContainer = styled.span`
   border-radius: 25px;
   text-align: center;
   font-size: 2rem;
+  border: 3px solid white;
 `
 
 const Stats = () => {

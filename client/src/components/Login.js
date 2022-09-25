@@ -8,6 +8,7 @@ const LoginBox = styled.div`
   padding: 25px 150px 0px;
   border-radius: 25px;
   margin-bottom: 20px;
+  border: 3px solid white;
 
   @media (max-width: 1000px) {
     padding: 25px 75px;
