@@ -23,14 +23,15 @@ const Create = () => {
 
     const returnedQuestions = [
       {
-        content: 'What is the capital of France?',
-        a: 'Paris',
-        b: 'Berlin',
-        c: 'London',
-        d: 'Tokyo',
-        difficulty: 'Medium',
+        question: 'What is the capital of France?',
+        correct_answer: 'Paris',
+        incorrect_answers: [
+          'Tokyo',
+          'Berlin',
+          'London'
+        ],
+        difficulty: 'medium',
         category: 'Geography',
-        correct: 'a',
         id: 2
       },
     ]

@@ -40,7 +40,6 @@ const Header = styled.h2`
 const ListContainer = ({ questions, loadQuestion }) => {
   const dummyQuestion = {
     id: -1,
-    content: 'New Question'
   }
 
   return (

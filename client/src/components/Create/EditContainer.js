@@ -79,24 +79,22 @@ const StyledButton = styled.button`
 
 const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) => {
   // Needs to be refactored
-  const [content, setContent] = useState(question.content ? question.content : '')
-  const [answerA, setAnswerA] = useState(question.a ? question.a : '')
-  const [answerB, setAnswerB] = useState(question.b ? question.b : '')
-  const [answerC, setAnswerC] = useState(question.c ? question.c : '')
-  const [answerD, setAnswerD] = useState(question.d ? question.d : '')
+  const [content, setContent] = useState(question.question ? question.question : '')
+  const [answerA, setAnswerA] = useState(question.correct_answer ? question.correct_answer : '')
+  const [answerB, setAnswerB] = useState(question.incorrect_answers ? question.incorrect_answers[0] : '')
+  const [answerC, setAnswerC] = useState(question.incorrect_answers ? question.incorrect_answers[1] : '')
+  const [answerD, setAnswerD] = useState(question.incorrect_answers ? question.incorrect_answers[2] : '')
   const [category, setCategory] = useState(question.category ? question.category : 'General Knowledge')
   const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty : 'Easy')
-  const [correct, setCorrect] = useState(question.correct ? question.correct : 'a')
 
   useEffect(() => {
-    setContent(question.content ? question.content : '')
-    setAnswerA(question.a ? question.a : '')
-    setAnswerB(question.b ? question.b : '')
-    setAnswerC(question.c ? question.c : '')
-    setAnswerD(question.d ? question.d : '')
+    setContent(question.question ? question.question : '')
+    setAnswerA(question.correct_answer ? question.correct_answer : '')
+    setAnswerB(question.incorrect_answers ? question.incorrect_answers[0] : '')
+    setAnswerC(question.incorrect_answers ? question.incorrect_answers[1] : '')
+    setAnswerD(question.incorrect_answers ? question.incorrect_answers[2] : '')
     setCategory(question.category ? question.category : 'General Knowledge')
     setDifficulty(question.difficulty ? question.difficulty : 'Easy')
-    setCorrect(question.correct ? question.correct : 'a')
   }, [question])
 
   const difficulties = ['Easy', 'Medium', 'Hard']
@@ -104,8 +102,6 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     'Entertainment: Video Games', 'Entertainment: Board Games','Science & Nature','Science: Computers','Science: Mathematics','Mythology','Sports','Geography',
     'History','Politics','Art', 'Celebrities','Animals','Vehicles','Entertainment: Comics','Science: Gadgets','Entertainment: Japanese Anime & Manga',
     'Entertainment: Cartoon & Animations']
-  const answerValues = ['a', 'b', 'c', 'd']
-
 
   const handleDelete = (event) => {
     event.preventDefault()
@@ -117,21 +113,21 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     setAnswerD('')
     setCategory('General Knowledge')
     setDifficulty('Easy')
-    setCorrect('a')
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const newQuestion = {
-      content,
-      'a': answerA,
-      'b': answerB,
-      'c': answerC,
-      'd': answerD,
+      question: content,
+      correct_answer: answerA,
+      incorrect_answers: [
+        answerB,
+        answerC,
+        answerD
+      ],
       category,
-      difficulty,
-      correct
+      difficulty: difficulty.toLowerCase(),
     }
 
     try {
@@ -149,19 +145,19 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
         <PropertyContainer>
           <CreateFlex>
             <div>
-              <StyledLabel>a</StyledLabel>
+              <StyledLabel>Correct Answer</StyledLabel>
               <Answer type="text" value={answerA} name="AnswerA" id="answerA" onChange={({ target }) => setAnswerA(target.value)} />
             </div>
             <div>
-              <StyledLabel>b</StyledLabel>
+              <StyledLabel>Incorrect Answer</StyledLabel>
               <Answer type="text" value={answerB} name="AnswerB" id="answerB" onChange={({ target }) => setAnswerB(target.value)} />
             </div>
             <div>
-              <StyledLabel>c</StyledLabel>
+              <StyledLabel>Incorrect Answer</StyledLabel>
               <Answer type="text" value={answerC} name="AnswerC" id="answerC" onChange={({ target }) => setAnswerC(target.value)} />
             </div>
             <div>
-              <StyledLabel>d</StyledLabel>
+              <StyledLabel>Incorrect Answer</StyledLabel>
               <Answer type="text" value={answerD} name="AnswerD" id="answerD" onChange={({ target }) => setAnswerD(target.value)} />
             </div>
           </CreateFlex>
@@ -179,14 +175,6 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
               <StyledSelect name="category" id="category" value={category === null ? 'General Knowledge' : category} onChange={({ target }) => setCategory(target.value)}>
                 {categories.map((cat, i) =>
                   <option key={i} value={cat}>{cat}</option>
-                )}
-              </StyledSelect>
-            </div>
-            <div>
-              <StyledLabel>Correct Answer</StyledLabel>
-              <StyledSelect name="correct" id="correct" value={correct === null ? 'a' : correct} onChange={({ target }) => setCorrect(target.value)}>
-                {answerValues.map((ans, i) =>
-                  <option key={i} value={ans}>{ans}</option>
                 )}
               </StyledSelect>
             </div>

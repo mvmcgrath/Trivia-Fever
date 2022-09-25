@@ -38,7 +38,15 @@ const Fill = styled.div`
   animation-fill-mode: forwards;
 `
 
-const TimerBar = () => {
+const TimerBar = ({ empty }) => {
+  if (empty) {
+    return(
+      <Container>
+        <Timer></Timer>
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <Timer>

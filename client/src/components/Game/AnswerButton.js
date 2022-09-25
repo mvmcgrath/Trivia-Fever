@@ -22,19 +22,19 @@ const CorrectButton = styled(StyledButton)`
   border: 3px solid green;
 `
 
-const AnswerButton = ({ handleAnswer, answer, letter, verify }) => {
+const AnswerButton = ({ handleAnswer, answer, letter, status }) => {
   const handleClick = (event) => {
     event.preventDefault()
     handleAnswer(letter)
   }
 
-  if (verify === 'Wrong') {
+  if (status === 'Wrong') {
     return(
       <WrongButton onClick={handleClick}>{answer}</WrongButton>
     )
   }
 
-  if (verify === 'Correct') {
+  if (status === 'Correct') {
     return(
       <CorrectButton onClick={handleClick}>{answer}</CorrectButton>
     )

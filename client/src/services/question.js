@@ -7,12 +7,17 @@ const setToken = newToken => {
   token = `bearer ${newToken}`
 }
 
-const getAll = async () => {
+const getAllUser = async () => {
   const config = {
     headers: { Authorization: token }
   }
 
   const response = await axios.get(baseUrl, config)
+  return response.data
+}
+
+const getAllExternal = async () => {
+  const response = await axios.get('https://opentdb.com/api.php?amount=10&type=multiple')
   return response.data
 }
 
@@ -42,4 +47,4 @@ const deleteBlog = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, config)
   return response.data
 }
-export default { setToken, getAll, create, update, deleteBlog }
+export default { setToken, getAllUser, getAllExternal, create, update, deleteBlog }

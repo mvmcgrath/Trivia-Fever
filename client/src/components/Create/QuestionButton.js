@@ -21,8 +21,14 @@ const QuestionButton = ({ loadQuestion, question }) => {
     loadQuestion(question)
   }
 
+  if (question.id === -1) {
+    return(
+      <StyledButton onClick={handleClick} id={question.id}>New Question</StyledButton>
+    )
+  }
+
   return(
-    <StyledButton onClick={handleClick} id={question.id}>{question.content}</StyledButton>
+    <StyledButton onClick={handleClick} id={question.id}>{question.question}</StyledButton>
   )
 }
 

@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import AnswerButton from './AnswerButton'
+import { useEffect, useState } from 'react'
+import he from 'he'
 
 const Container = styled.div`
   padding: 50px;
   background-color: #393E41;
   border-radius: 10px;
-  height: 300px;
+  height: 400px;
   width: 800px;
   display: flex;
   justify-content: flex-start;
@@ -36,20 +38,102 @@ const Header = styled.h1`
   padding: 25px;
   border-radius: 10px;
   border: 3px solid white;
+  text-align: center;
 `
 
 const GameContainer = ( { handleAnswer, question }) => {
+  const [answerAStatus, setAnswerAStatus] = useState('')
+  const [answerBStatus, setAnswerBStatus] = useState('')
+  const [answerCStatus, setAnswerCStatus] = useState('')
+  const [answerDStatus, setAnswerDStatus] = useState('')
+  const [answerA, setAnswerA] = useState('')
+  const [answerB, setAnswerB] = useState('')
+  const [answerC, setAnswerC] = useState('')
+  const [answerD, setAnswerD] = useState('')
+  const [correct, setCorrect] = useState('')
+  const [lock, setLock] = useState(false)
+
+  const answerDict = {
+    0: setAnswerA,
+    1: setAnswerB,
+    2: setAnswerC,
+    3: setAnswerD
+  }
+
+  const statusDict = {
+    a: setAnswerAStatus,
+    b: setAnswerBStatus,
+    c: setAnswerCStatus,
+    d: setAnswerDStatus
+  }
+
+  const letterDict = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    3: 'd',
+  }
+
+  // Resets colors and lock once there is a new question
+  useEffect(() => {
+    setAnswerAStatus('')
+    setAnswerBStatus('')
+    setAnswerCStatus('')
+    setAnswerDStatus('')
+    setAnswerA('')
+    setAnswerB('')
+    setAnswerC('')
+    setAnswerD('')
+    setLock(false)
+    const index = Math.floor(Math.random() * 4)
+    const newArray = question.incorrect_answers.slice(0)
+
+    newArray.splice(index, 0, question.correct_answer)
+    setCorrect(letterDict[index])
+    newArray.forEach((ans, i) => answerDict[i](ans))
+  }, [question])
+
+  const noAnswerSelected = () => {
+    setLock(true)
+    statusDict[correct]('Correct')
+    handleAnswer('e')
+  }
+
+  const timeoutID = setTimeout(() => {
+    if (lock !== true) {
+      noAnswerSelected()
+    }
+  }, 20000)
+
+  const handleClick = (letter) => {
+    if (lock) {
+      return
+    }
+
+    clearTimeout(timeoutID)
+
+    statusDict[correct]('Correct')
+    setLock(true)
+
+    if (letter !== correct) {
+      statusDict[letter]('Wrong')
+      handleAnswer('')
+    } else {
+      handleAnswer(question.correct_answer)
+    }
+  }
+
   return(
     <Container>
-      <Header>{question.content}</Header>
+      <Header>{he.decode(question.question)}</Header>
       <AnswerBox>
         <AnswerContainer>
-          <AnswerButton handleAnswer={handleAnswer} answer={question.a} letter='a'/>
-          <AnswerButton handleAnswer={handleAnswer} answer={question.b} letter='b'/>
+          <AnswerButton handleAnswer={handleClick} answer={he.decode(answerA)} letter='a' status={answerAStatus} />
+          <AnswerButton handleAnswer={handleClick} answer={he.decode(answerB)} letter='b' status={answerBStatus} />
         </AnswerContainer>
         <AnswerContainer>
-          <AnswerButton handleAnswer={handleAnswer} answer={question.c} letter='c'/>
-          <AnswerButton handleAnswer={handleAnswer} answer={question.d} letter='d'/>
+          <AnswerButton handleAnswer={handleClick} answer={he.decode(answerC)} letter='c' status={answerCStatus} />
+          <AnswerButton handleAnswer={handleClick} answer={he.decode(answerD)} letter='d' status={answerDStatus} />
         </AnswerContainer>
       </AnswerBox>
     </Container>
