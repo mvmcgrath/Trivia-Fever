@@ -34,7 +34,7 @@ const StyledButton = styled.button`
   color: white;
   border: 2px solid white;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: #4b5054;
 
   @media (max-width: 1000px) {
@@ -44,13 +44,14 @@ const StyledButton = styled.button`
 
 const StyledHeader = styled.label`
   margin: 0px;
+  display: block;
 `
 
 const NotificationMessage = styled.p`
   padding: 0px;
   font-size: 1.3rem;
   margin-top: 20px;
-  visibility: hidden;
+  visibility: ${props => props.visible ? 'visible' : 'hidden'};
   margin-bottom: 5px;
   color: red;
 
@@ -62,7 +63,7 @@ const NotificationMessage = styled.p`
 const Login = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [notification, setNotification] = useState('Error: Incorrect username or password')
+  const [notification, setNotification] = useState(false)
 
 
   const addLogin = async (event) => {
@@ -76,7 +77,7 @@ const Login = ({ handleLogin }) => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setNotification('Error: Incorrect username or password')
+      setNotification(true)
     }
   }
 
@@ -106,7 +107,7 @@ const Login = ({ handleLogin }) => {
           </LoginText>
           <StyledButton type="submit" id="login-button">Login</StyledButton>
         </form>
-        <NotificationMessage>{notification}</NotificationMessage>
+        {notification ? <NotificationMessage visible>Invalid username or password</NotificationMessage> : <NotificationMessage>Invalid username or password</NotificationMessage>}
       </LoginBox>
     </Container>
   )

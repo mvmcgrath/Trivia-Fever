@@ -9,6 +9,10 @@ const Container = styled.div`
   flex: 1;
   margin: 0px 100px;
   border-radius: 25px;
+  height: 600px;
+  width: 900px;
+  max-height: 600px;
+  max-width: 900px;
 `
 
 const QuestionFlex = styled.div`
@@ -24,6 +28,7 @@ const QuestionContainer = styled.div`
   padding: 0px 25px;
   overflow-y: auto;
   height: 400px;
+  margin-bottom: 55px;
 `
 
 const Header = styled.h2`

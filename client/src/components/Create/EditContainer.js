@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Container = styled.div`
   padding: 50px;
@@ -9,14 +9,16 @@ const Container = styled.div`
   flex: 2;
   margin: 0px 100px;
   border-radius: 25px;
+  height: 600px;
+  width: 900px;
+  max-height: 600px;
+  max-width: 900px;
 `
 
 const PropertyContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  max-height: 468px;
-  max-width: 863px;
 `
 
 const Answer = styled.input`
@@ -43,9 +45,9 @@ const StyledSelect = styled.select`
 
 const Header = styled(Answer)`
   min-width: 800px;
+  margin-bottom: 40px;
 `
 
-// Height is really hacky here, need to fix
 const CreateFlex = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,13 +55,13 @@ const CreateFlex = styled.div`
   justify-content: center;
   padding: 0px 25px;
   border-radius: 25px;
-  height: 468px;
 `
 
 const ButtonFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top: 80px;
 `
 const StyledButton = styled.button`
   font-size: 1.5rem;
@@ -74,22 +76,25 @@ const StyledButton = styled.button`
 `
 
 
-const EditContainer = ({ question, deleteQuestion, addQuestion }) => {
-  if (question === null) {
-    return(
-      <Container>
-        <h2>Select a Question</h2>
-      </Container>
-    )
-  }
+const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) => {
+  // Needs to be refactored
+  const [content, setContent] = useState(question.content ? question.content : '')
+  const [answerA, setAnswerA] = useState(question.a ? question.a : '')
+  const [answerB, setAnswerB] = useState(question.b ? question.b : '')
+  const [answerC, setAnswerC] = useState(question.c ? question.c : '')
+  const [answerD, setAnswerD] = useState(question.d ? question.d : '')
+  const [category, setCategory] = useState(question.category ? question.category : '')
+  const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty : '')
 
-  const [content, setContent] = useState(question.content)
-  const [answerA, setAnswerA] = useState(question.a)
-  const [answerB, setAnswerB] = useState(question.b)
-  const [answerC, setAnswerC] = useState(question.c)
-  const [answerD, setAnswerD] = useState(question.d)
-  const [category, setCategory] = useState(question.category)
-  const [difficulty, setDifficulty] = useState(question.difficulty)
+  useEffect(() => {
+    setContent(question.content ? question.content : '')
+    setAnswerA(question.a ? question.a : '')
+    setAnswerB(question.b ? question.b : '')
+    setAnswerC(question.c ? question.c : '')
+    setAnswerD(question.d ? question.d : '')
+    setCategory(question.category ? question.category : '')
+    setDifficulty(question.difficulty ? question.difficulty : '')
+  }, [question])
 
   const difficulties = ['Easy', 'Medium', 'Hard']
   const categories = ['General Knowledge','Entertainment: Books','Entertainment: Film','Entertainment: Music','Entertainment: Musicals & Theatres','Entertainment: Television',
@@ -101,17 +106,39 @@ const EditContainer = ({ question, deleteQuestion, addQuestion }) => {
   const handleDelete = (event) => {
     event.preventDefault()
     deleteQuestion(question)
+    setContent('')
+    setAnswerA('')
+    setAnswerB('')
+    setAnswerC('')
+    setAnswerD('')
+    setCategory('')
+    setDifficulty('')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    addQuestion(question, question)
+
+    const newQuestion = {
+      content,
+      'a': answerA,
+      'b': answerB,
+      'c': answerC,
+      'd': answerD,
+      category,
+      difficulty
+    }
+
+    try {
+      await addQuestion(question, newQuestion)
+    } catch (exception) {
+      setMessage('Something bad happened! Oopsie!')
+    }
   }
 
   return(
     <Container>
       <form onSubmit={handleSubmit}>
-        <StyledLabel>{question.id === 0 ? 'New Question' : 'Update Question'}</StyledLabel>
+        <StyledLabel>{question.id === -1 ? 'New Question' : 'Update Question'}</StyledLabel>
         <Header type="text" value={content} name="Content" id="content" onChange={({ target }) => setContent(target.value)} />
         <PropertyContainer>
           <CreateFlex>
@@ -152,7 +179,7 @@ const EditContainer = ({ question, deleteQuestion, addQuestion }) => {
           </CreateFlex>
         </PropertyContainer>
         <ButtonFlex>
-          <StyledButton type="submit" id="add-button">{question.id === 0 ? 'Add' : 'Update'}</StyledButton>
+          <StyledButton type="submit" id="add-button">{question.id === -1 ? 'Add' : 'Update'}</StyledButton>
           <StyledButton onClick={handleDelete} id="delete-button">Delete</StyledButton>
         </ButtonFlex>
       </form>

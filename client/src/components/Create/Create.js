@@ -1,12 +1,22 @@
-import { Container } from '../StyleHelper'
+import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 //import questionService from '../../services/question'
 import ListContainer from './ListContainer'
 import EditContainer from './EditContainer'
+import Message from './Message'
+
+const Container = styled.div`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+`
 
 const Create = () => {
   const [questions, setQuestions] = useState([])
-  const [editQuestion, setEditQuestion] = useState(null)
+  const [editQuestion, setEditQuestion] = useState({ id: -1 })
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     //const returnedQuestions = await questionService.getAll()
@@ -38,15 +48,19 @@ const Create = () => {
 
   const addQuestion = (question, newQuestion) => {
     console.log('Add!')
+    setMessage('Oh hi')
     console.log(question)
     console.log(newQuestion)
   }
 
   return (
-    <Container>
-      <ListContainer questions={questions} loadQuestion={loadQuestion} />
-      <EditContainer question={editQuestion} deleteQuestion={deleteQuestion} addQuestion={addQuestion} />
-    </Container>
+    <div>
+      <Message message={message} />
+      <Container>
+        <ListContainer questions={questions} loadQuestion={loadQuestion} />
+        <EditContainer question={editQuestion} deleteQuestion={deleteQuestion} addQuestion={addQuestion} setMessage={setMessage} />
+      </Container>
+    </div>
   )
 }
 
