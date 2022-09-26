@@ -1,12 +1,15 @@
 {
   "name": "trivia-fever-server",
   "version": "0.1.0",
-  "description": "",
+  "description": "Backend for Trivia Fever",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
-  "author": "",
+  "author": "mvmcgrath",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.24.0",

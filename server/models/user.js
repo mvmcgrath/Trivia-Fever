@@ -10,8 +10,18 @@ const userSchema = new mongoose.Schema({
       message: 'Username must consist only of numbers, letters, and underscores.',
     },
   },
-  name: String,
-  passwordHash: String,
+  correctAnswers: {
+    type: Number,
+    required: true
+  },
+  gamesPlayed: {
+    type: Number,
+    required: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  },
   questions: [
     {
       type: mongoose.Schema.Types.ObjectId,

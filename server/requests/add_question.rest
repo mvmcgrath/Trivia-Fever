@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/questions
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpcHN1bSIsImlkIjoiNjMzMWY4ZTMyYWQ2NmU3MmZkYmRlZDUwIiwiaWF0IjoxNjY0MjE5MzkyfQ.L0A60Ia-VnEgB2yuRanOJY4ccz3C3P9YLms3Q543awk
+
+{
+    "question": "What is the color of the sky?",
+    "category": "General Knowledge",
+    "difficulty": "easy",
+    "correct_answer": "Blue",
+    "incorrect_answers": ["Yellow", "Red", "Green"]
+}

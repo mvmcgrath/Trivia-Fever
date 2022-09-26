@@ -14,7 +14,7 @@ const questionSchema = new mongoose.Schema({
     required: true,
     minlength: 4,
     validate: {
-      validator: (n) => /^[\w\s]+?$/.test(n),
+      validator: (n) => /^[\w\s]+\?$/.test(n),
       message: 'Question must consist only of numbers and letters, and end with a question mark.',
     },
   },
