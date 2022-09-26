@@ -32,7 +32,29 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
-const Navigation = () => {
+const StyledSpan = styled.span`
+  color: white;
+  margin-right: 20px;
+`
+
+const LogoutButton = styled.button`
+  font-size: 1.5rem;
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: #4b5054;
+  color: white;
+  overflow-wrap: break-word;
+  cursor: pointer;
+`
+
+const Navigation = ({ user, handleLogout }) => {
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    handleLogout()
+  }
+
+
   return (
     <Bar>
       <LinkContainer>
@@ -42,7 +64,12 @@ const Navigation = () => {
         <StyledLink to="/stats">Statistics</StyledLink>
       </LinkContainer>
       <RightLinkContainer>
-        <StyledLink to="/login">Login</StyledLink>
+        {user === null ?
+          <StyledLink to="/login">Login</StyledLink> :
+          <div>
+            <StyledSpan>{user.username}</StyledSpan>
+            <LogoutButton onClick={handleClick}>Logout</LogoutButton>
+          </div>}
       </RightLinkContainer>
     </Bar>
   )

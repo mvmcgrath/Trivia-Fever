@@ -1,5 +1,8 @@
 import styled from 'styled-components'
-import { Container } from './StyleHelper'
+import { Container } from '../StyleHelper'
+import { useState, useEffect } from 'react'
+import userService from '../../services/user'
+import TableRow from './TableRow'
 
 const Table = styled.table`
   font-size: 1.6rem;
@@ -25,6 +28,14 @@ const TableContainer = styled.span`
 `
 
 const Stats = () => {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    userService.getAll().then(users => {
+      setUsers( users )
+    })
+  }, [])
+
   return(
     <div>
       <Container>
@@ -39,11 +50,9 @@ const Stats = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <TableHeader as="td">Betsy</TableHeader>
-                <TableHeader as="td">3</TableHeader>
-                <TableHeader as="td">7</TableHeader>
-              </tr>
+              {users.map(user => (
+                <TableRow key={user._id} user={user} />
+              ))}
             </tbody>
           </Table>
         </TableContainer>

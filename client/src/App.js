@@ -3,7 +3,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import GameSelect from './components/Game/GameSelect'
 import Play from './components/Game/Play'
-import Stats from './components/Stats'
+import Stats from './components/Statistics/Stats'
 import Create from './components/Create/Create'
 
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -24,6 +24,11 @@ const App = () => {
     setUser(user)
   }
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedTriviaUser')
+    setUser(null)
+  }
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTriviaUser')
     if (loggedUserJSON) {
@@ -32,16 +37,14 @@ const App = () => {
     }
   }, [])
 
-  //<Route path="/create" element={ user ? <Create /> : <Navigate to="/login" />} />
-
   return (
     <div>
-      <Navigation user={user} />
+      <Navigation user={user} handleLogout={handleLogout}/>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={ user ? <Navigate to="/game" /> : <Login handleLogin={handleLogin} />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/create" element={ user ? <Create /> : <Navigate to="/login" />} />
         <Route path="/game" element={<GameSelect />} />
         <Route path="/game/auto" element={<Play gameType='auto'/>} />
         <Route path="/game/user" element={<Play gameType='user'/>} />
