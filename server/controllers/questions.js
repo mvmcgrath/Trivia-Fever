@@ -3,8 +3,12 @@ const Question = require('../models/question')
 const middleware = require('../utils/middleware')
 
 questionRouter.get('/', middleware.tokenExtractor, middleware.userExtractor, async (request, response) => {
-  // This might not be the best way to do this
   const questions = await Question.find({ user: request.user._id })
+  response.json(questions)
+})
+
+questionRouter.get('/all', async (request, response) => {
+  const questions = await Question.find({})
   response.json(questions)
 })
 
@@ -51,13 +55,13 @@ questionRouter.delete('/:id', middleware.tokenExtractor, middleware.userExtracto
 questionRouter.put('/:id', middleware.tokenExtractor, middleware.userExtractor, async (request, response) => {
   const body = request.body
 
-  const question = new Question({
+  const question = {
     question: body.question,
     category: body.category,
     difficulty: body.difficulty,
     correct_answer: body.correct_answer,
     incorrect_answers: body.incorrect_answers
-  })
+  }
 
   const existingQuestion = await Question.findById(request.params.id)
 
@@ -68,7 +72,7 @@ questionRouter.put('/:id', middleware.tokenExtractor, middleware.userExtractor, 
   }
 
   if (request.user._id.toString() === existingQuestion.user.toString()) {
-    const updatedQuestion = await Question.findByIdAndUpdate(request.params.id, question, { new: true })
+    const updatedQuestion = await Question.findByIdAndUpdate(request.params.id, question, { new: true, runValidators: true })
     response.json(updatedQuestion)
   } else {
     return response.status(401).json({

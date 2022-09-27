@@ -7,12 +7,17 @@ const setToken = newToken => {
   token = `bearer ${newToken}`
 }
 
-const getAllUser = async () => {
+const getAllPersonal = async () => {
   const config = {
     headers: { Authorization: token }
   }
 
   const response = await axios.get(baseUrl, config)
+  return response.data
+}
+
+const getAllUser = async () => {
+  const response = await axios.get(`${baseUrl}/all`)
   return response.data
 }
 
@@ -47,4 +52,4 @@ const deleteBlog = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, config)
   return response.data
 }
-export default { setToken, getAllUser, getAllExternal, create, update, deleteBlog }
+export default { setToken, getAllPersonal, getAllUser, getAllExternal, create, update, deleteBlog }

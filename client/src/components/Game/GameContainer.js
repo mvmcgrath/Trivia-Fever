@@ -53,6 +53,8 @@ const GameContainer = ( { handleAnswer, question }) => {
   const [correct, setCorrect] = useState('')
   const [lock, setLock] = useState(false)
 
+  let timeoutID
+
   const answerDict = {
     0: setAnswerA,
     1: setAnswerB,
@@ -99,11 +101,13 @@ const GameContainer = ( { handleAnswer, question }) => {
     handleAnswer('e')
   }
 
-  const timeoutID = setTimeout(() => {
-    if (lock !== true) {
-      noAnswerSelected()
-    }
-  }, 20000)
+  if (correct in statusDict) {
+    timeoutID = setTimeout(() => {
+      if (lock !== true) {
+        noAnswerSelected()
+      }
+    }, 20000)
+  }
 
   const handleClick = (letter) => {
     if (lock) {

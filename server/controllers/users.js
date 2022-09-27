@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const User = require('../models/user')
+const middleware = require('../utils/middleware')
 
 userRouter.get('/', async (request, response) => {
   const users = await User.find({}).populate('questions')
@@ -8,7 +9,7 @@ userRouter.get('/', async (request, response) => {
 })
 
 userRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
+  const { username, password } = request.body
 
   if (!(username && password)) {
     return response.status(400).json({
@@ -40,7 +41,6 @@ userRouter.post('/', async (request, response) => {
 
   const user = new User({
     username,
-    name,
     passwordHash,
     correctAnswers: 0,
     gamesPlayed: 0
@@ -49,6 +49,20 @@ userRouter.post('/', async (request, response) => {
   const savedUser = await user.save()
 
   response.status(201).json(savedUser)
+})
+
+userRouter.put('/', middleware.tokenExtractor, middleware.userExtractor, async (request, response) => {
+  const body = request.body
+
+  const user = {
+    username: body.username,
+    passwordHash: body.passwordHash,
+    correctAnswers: body.correctAnswers,
+    gamesPlayed: body.gamesPlayed
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(request.user.id, user, { new: true, runValidators: true })
+  response.json(updatedUser)
 })
 
 module.exports = userRouter

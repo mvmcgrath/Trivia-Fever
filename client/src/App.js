@@ -10,6 +10,8 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import loginService from './services/login'
+import questionService from './services/question'
+import userService from './services/user'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -21,6 +23,8 @@ const App = () => {
       'loggedTriviaUser', JSON.stringify(user)
     )
 
+    questionService.setToken(user.token)
+    userService.setToken(user.token)
     setUser(user)
   }
 
@@ -34,6 +38,8 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+      questionService.setToken(user.token)
+      userService.setToken(user.token)
     }
   }, [])
 
@@ -43,11 +49,11 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={ user ? <Navigate to="/game" /> : <Login handleLogin={handleLogin} />} />
-        <Route path="/create" element={ user ? <Create /> : <Navigate to="/login" />} />
+        <Route path="/login" element={ user === null ? <Login handleLogin={handleLogin} /> : <Navigate to="/game" />} />
+        <Route path="/create" element={ user === null ? <Navigate to="/login" /> : <Create />} />
         <Route path="/game" element={<GameSelect />} />
-        <Route path="/game/auto" element={<Play gameType='auto'/>} />
-        <Route path="/game/user" element={<Play gameType='user'/>} />
+        <Route path="/game/auto" element={<Play user={user} gameType='auto'/>} />
+        <Route path="/game/user" element={<Play user={user} gameType='user'/>} />
         <Route path="/stats" element={<Stats />} />
       </Routes>
     </div>

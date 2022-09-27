@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-//import questionService from '../../services/question'
+import questionService from '../../services/question'
 import ListContainer from './ListContainer'
 import EditContainer from './EditContainer'
 import Message from './Message'
@@ -19,24 +19,9 @@ const Create = () => {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    //const returnedQuestions = await questionService.getAll()
-
-    const returnedQuestions = [
-      {
-        question: 'What is the capital of France?',
-        correct_answer: 'Paris',
-        incorrect_answers: [
-          'Tokyo',
-          'Berlin',
-          'London'
-        ],
-        difficulty: 'medium',
-        category: 'Geography',
-        id: 2
-      },
-    ]
-
-    setQuestions(returnedQuestions)
+    questionService.getAllPersonal().then(returnedQuestions => {
+      setQuestions(returnedQuestions)
+    })
   }, [])
 
   const loadQuestion = (question) => {
@@ -48,11 +33,21 @@ const Create = () => {
     console.log(question)
   }
 
-  const addQuestion = (question, newQuestion) => {
-    console.log('Add!')
-    setMessage('Oh hi')
-    console.log(question)
-    console.log(newQuestion)
+  const addQuestion = async (question, newQuestion) => {
+    try {
+      if (question.id === -1) {
+        const returnedQuestion = await questionService.create(newQuestion)
+        setMessage('A new question has been created!')
+        setQuestions(questions.concat(returnedQuestion))
+      } else {
+        await questionService.update(question.id, newQuestion)
+        setMessage('You have successfully updated the question!')
+        newQuestion = { ...newQuestion, id: question.id }
+        setQuestions(questions.filter(q => q.id !== question.id).concat(newQuestion))
+      }
+    } catch (exception) {
+      setMessage(exception.response.data.error)
+    }
   }
 
   return (

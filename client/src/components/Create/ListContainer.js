@@ -47,9 +47,11 @@ const ListContainer = ({ questions, loadQuestion }) => {
       <Header>Questions</Header>
       <QuestionFlex>
         <QuestionContainer>
-          {questions.map(question =>
-            <QuestionButton key={question.id} question={question} loadQuestion={loadQuestion} />
-          )}
+          {questions
+            .sort((a, b) => a.question.localeCompare(b.question))
+            .map((question, i) =>
+              <QuestionButton key={i} question={question} loadQuestion={loadQuestion} />
+            )}
         </QuestionContainer>
         <QuestionButton key={dummyQuestion.id} question={dummyQuestion} loadQuestion={loadQuestion} />
       </QuestionFlex>

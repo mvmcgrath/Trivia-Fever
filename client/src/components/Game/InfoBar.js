@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   border: 3px solid white;
-  margin-top: 100px;
+  margin-top: 20px;
 `
 
 const Label = styled.label`
@@ -25,10 +25,10 @@ const InfoBar = ({ question, number, correct }) => {
   return (
     <Container>
       <div>
-        <Label>Difficulty: {question.difficulty}</Label>
+        <Label>{question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)}</Label>
       </div>
       <div>
-        <Label>Category: {question.category}</Label>
+        <Label>{question.category}</Label>
       </div>
       <div>
         <Label>Question: {number}/10</Label>

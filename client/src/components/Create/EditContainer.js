@@ -85,7 +85,7 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
   const [answerC, setAnswerC] = useState(question.incorrect_answers ? question.incorrect_answers[1] : '')
   const [answerD, setAnswerD] = useState(question.incorrect_answers ? question.incorrect_answers[2] : '')
   const [category, setCategory] = useState(question.category ? question.category : 'General Knowledge')
-  const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty : 'Easy')
+  const [difficulty, setDifficulty] = useState(question.difficulty ? question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1) : 'Easy')
 
   useEffect(() => {
     setContent(question.question ? question.question : '')
@@ -94,7 +94,7 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     setAnswerC(question.incorrect_answers ? question.incorrect_answers[1] : '')
     setAnswerD(question.incorrect_answers ? question.incorrect_answers[2] : '')
     setCategory(question.category ? question.category : 'General Knowledge')
-    setDifficulty(question.difficulty ? question.difficulty : 'Easy')
+    setDifficulty(question.difficulty ?  question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)  : 'Easy')
   }, [question])
 
   const difficulties = ['Easy', 'Medium', 'Hard']

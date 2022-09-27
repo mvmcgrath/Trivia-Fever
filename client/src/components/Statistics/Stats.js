@@ -51,7 +51,7 @@ const Stats = () => {
             </thead>
             <tbody>
               {users.map(user => (
-                <TableRow key={user._id} user={user} />
+                <TableRow key={user.id} user={user} />
               ))}
             </tbody>
           </Table>

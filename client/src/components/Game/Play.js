@@ -3,6 +3,7 @@ import TimerBar from './TimerBar'
 import GameContainer from './GameContainer'
 import InfoBar from './InfoBar'
 import questionService from '../../services/question'
+import userService from '../../services/user'
 
 import { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
@@ -40,7 +41,7 @@ const PlaceHolderInfoContainer = styled.div`
   margin-top: 100px;
 `
 
-const Play = ({ gameType }) => {
+const Play = ({ gameType, user }) => {
   const [questions, setQuestions] = useState(null)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [correctAnswers, setCorrectAnswers] = useState(0)
@@ -50,15 +51,27 @@ const Play = ({ gameType }) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       const retrievedQuestions = await questionService.getAllExternal()
-      console.log(gameType)
-      console.log(retrievedQuestions.results)
-      setQuestions(retrievedQuestions.results)
+      if (gameType === 'user') {
+        const userQuestions = await questionService.getAllUser()
+
+        //Shuffles questions
+
+        for (let i = userQuestions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [userQuestions[j], userQuestions[i]] = [userQuestions[i], userQuestions[j]]
+        }
+
+        // Supplements user questions if there isn't enough
+        setQuestions(userQuestions.concat(retrievedQuestions.results))
+      } else {
+        setQuestions(retrievedQuestions.results)
+      }
     }
 
     fetchQuestions()
   }, [])
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = async (answer) => {
     setEmpty(true)
 
     if (answer === questions[questionIndex].correct_answer) {
@@ -67,6 +80,20 @@ const Play = ({ gameType }) => {
 
     // Gives breathing room between questions
     if (questionIndex === 9) {
+      if (user) {
+        try {
+          const updatedUser = {
+            ...user,
+            correctAnswers: user.correctAnswers + correctAnswers,
+            gamesPlayed: user.gamesPlayed + 1
+          }
+
+          await userService.update(updatedUser)
+        } catch (exception) {
+          console.error(exception)
+        }
+      }
+
       setTimeout(() => {
         setActive(false)
       }, 5000)
