@@ -12,7 +12,7 @@ const BodyContainer = styled.div`
 const BottomContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0px 100px;
   background-color: #393E41;
   border: 3px solid white;
@@ -42,9 +42,9 @@ const Header = styled.header`
 `
 
 const BottomSection = styled.div`
-  flex-basis: 100%;
   font-size: 1.4rem;
   text-align: center;
+  flex: 1;
 `
 
 const BottomHeader = styled.h2`
@@ -67,7 +67,7 @@ const Home = () => {
     <BodyContainer>
       <Header>
         <TextHeading>Trivia Fever</TextHeading>
-        <TextBlurb>The web browser trivia game anyone can play</TextBlurb>
+        <TextBlurb>The web browser trivia game anyone can play!</TextBlurb>
       </Header>
       <BottomContainer>
         <BottomSection>
@@ -78,7 +78,7 @@ const Home = () => {
             <LeftList>
               <li>Play games of trivia with thousands of possible questions!</li>
               <li>See detailed information about questions!</li>
-              <li>Create your own questions and games!</li>
+              <li>Create your own questions!</li>
               <li>Keep track of your trivia statistics and rank overall!</li>
               <li>Become the best trivia player ever!</li>
             </LeftList>
@@ -86,8 +86,8 @@ const Home = () => {
         </BottomSection>
         <BottomSection>
           <div>
-            <BottomHeader>Question of the Day</BottomHeader>
-            <p>What is a good placeholder?</p>
+            <BottomHeader>Get Started</BottomHeader>
+            <span>Login to track your trivia statistics and to create trivia questions, or click on play to play a game of trivia!</span>
           </div>
         </BottomSection>
         <BottomSection>

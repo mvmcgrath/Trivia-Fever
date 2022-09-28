@@ -2,6 +2,10 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { Container } from './StyleHelper'
 
+const VerticalContainer = styled(Container)`
+  flex-direction: column;
+`
+
 const LoginBox = styled.div`
   background-color: #393E41;
   text-align: center;
@@ -13,6 +17,10 @@ const LoginBox = styled.div`
   @media (max-width: 1000px) {
     padding: 25px 75px;
   }
+`
+
+const DisplayBox = styled(LoginBox)`
+  padding: 25px;
 `
 
 const LoginText = styled.div`
@@ -60,6 +68,10 @@ const NotificationMessage = styled.p`
     font-size: 2.6rem;
   }
 `
+const VistingMessage = styled.p`
+  font-size: 1.5rem;
+`
+
 
 const Login = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
@@ -83,7 +95,7 @@ const Login = ({ handleLogin }) => {
   }
 
   return(
-    <Container>
+    <VerticalContainer>
       <LoginBox>
         <form onSubmit={addLogin}>
           <LoginText>
@@ -110,7 +122,10 @@ const Login = ({ handleLogin }) => {
         </form>
         {notification ? <NotificationMessage visible>Invalid username or password</NotificationMessage> : <NotificationMessage>Invalid username or password</NotificationMessage>}
       </LoginBox>
-    </Container>
+      <DisplayBox>
+        <VistingMessage>Just visiting? Use <strong>Username: root</strong> and <strong>Password: 1234</strong> to login!</VistingMessage>
+      </DisplayBox>
+    </VerticalContainer>
   )
 }
 
