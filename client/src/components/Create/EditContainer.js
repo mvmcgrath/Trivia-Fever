@@ -103,9 +103,9 @@ const EditContainer = ({ question, deleteQuestion, addQuestion, setMessage }) =>
     'History','Politics','Art', 'Celebrities','Animals','Vehicles','Entertainment: Comics','Science: Gadgets','Entertainment: Japanese Anime & Manga',
     'Entertainment: Cartoon & Animations']
 
-  const handleDelete = (event) => {
+  const handleDelete = async (event) => {
     event.preventDefault()
-    deleteQuestion(question)
+    await deleteQuestion(question)
     setContent('')
     setAnswerA('')
     setAnswerB('')

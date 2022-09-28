@@ -41,8 +41,9 @@ questionRouter.post('/', middleware.tokenExtractor, middleware.userExtractor, as
 
 questionRouter.delete('/:id', middleware.tokenExtractor, middleware.userExtractor, async (request, response) => {
   const question = await Question.findById(request.params.id)
-
-  if (!(question) || question.user.toString() === request.user._id.toString()) {
+  if (!question) {
+    response.status(204).end()
+  } else if (question.user.toString() === request.user._id.toString()) {
     await Question.findByIdAndDelete(request.params.id)
     response.status(204).end()
   } else {

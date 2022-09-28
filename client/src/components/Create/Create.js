@@ -28,9 +28,14 @@ const Create = () => {
     setEditQuestion(question)
   }
 
-  const deleteQuestion = (question) => {
-    console.log('Delete!')
-    console.log(question)
+  const deleteQuestion = async (question) => {
+    try {
+      await questionService.deleteQuestion(question.id)
+      setMessage(`You have deleted ${question.title}`)
+      setQuestions(questions.filter(q => q.id !== question.id))
+    } catch (exception) {
+      setMessage(exception.response.data.error)
+    }
   }
 
   const addQuestion = async (question, newQuestion) => {
