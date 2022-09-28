@@ -6,10 +6,8 @@ const Question = require('../models/question')
 const helper = require('./test_helper')
 const bcrypt = require('bcrypt')
 
-
 const api = supertest(app)
-
-let tokens = {}
+const tokens = {}
 
 beforeEach(async () => {
   await User.deleteMany({})

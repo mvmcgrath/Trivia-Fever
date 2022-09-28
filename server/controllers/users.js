@@ -42,8 +42,8 @@ userRouter.post('/', async (request, response) => {
   const user = new User({
     username,
     passwordHash,
-    correctAnswers: 0,
-    gamesPlayed: 0
+    correctAnswers: request.body.correctAnswers || 0,
+    gamesPlayed: request.body.gamesPlayed || 0
   })
 
   const savedUser = await user.save()
@@ -55,8 +55,8 @@ userRouter.put('/', middleware.tokenExtractor, middleware.userExtractor, async (
   const body = request.body
 
   const user = {
-    username: body.username,
-    passwordHash: body.passwordHash,
+    username: request.user.username,
+    passwordHash: request.user.passwordHash,
     correctAnswers: body.correctAnswers,
     gamesPlayed: body.gamesPlayed
   }

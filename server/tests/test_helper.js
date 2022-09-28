@@ -155,20 +155,55 @@ const validQuestion = {
 
 
 const invalidQuestion = {
+  ...validQuestion,
   question: 'This is not a question!',
-  difficulty: 'easy',
-  category: 'General Knowledge',
-  correct_answer: 'Yes',
-  incorrect_answers: [
-    'No',
-    'Maybe',
-    'Possibly'
-  ]
+}
+
+const validUser = {
+  username: 'newuser',
+  correctAnswers: 0,
+  gamesPlayed: 0,
+  password: 'notsecurepassword'
+}
+
+const invalidUserShortPassword = {
+  ...validUser,
+  password: 'no'
+}
+
+const invalidUserBadPassword = {
+  ...validUser,
+  password: '!@#$%^&*()'
+}
+
+const invalidUserExists = {
+  ...validUser,
+  username: 'lipsum',
+}
+
+const invalidUserMissing = {
+  gamesPlayed: 0,
+  correctAnswers: 0
+}
+
+const validUserUpdate = {
+  gamesPlayed: 1,
+  correctAnswers: 1
+}
+
+const invalidUserUpdate = {
+  gamesPlayed: 'notanumber',
+  correctAnswers: 'notanumber'
 }
 
 const questionsInDb = async () => {
   const questions = await Question.find({})
   return questions.map(q => q.toJSON())
+}
+
+const usersInDb = async () => {
+  const users = await User.find({})
+  return users.map(u => u.toJSON())
 }
 
 const addManyQuestions = async () => {
@@ -199,14 +234,20 @@ const getToken = (user) => {
   return jwt.sign(userForToken, config.SECRET)
 }
 
-
-
 module.exports = {
   initialUsers,
   initialQuestions,
   validQuestion,
   invalidQuestion,
+  validUser,
+  invalidUserBadPassword,
+  invalidUserExists,
+  invalidUserShortPassword,
+  invalidUserMissing,
+  validUserUpdate,
+  invalidUserUpdate,
   questionsInDb,
+  usersInDb,
   addManyQuestions,
   getToken
 }
