@@ -51,7 +51,6 @@ const Play = ({ gameType, user }) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       const retrievedQuestions = await questionService.getAllExternal()
-      console.log(retrievedQuestions)
       if (gameType === 'user') {
         const userQuestions = await questionService.getAllUser()
 
