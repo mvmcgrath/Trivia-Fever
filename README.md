@@ -4,7 +4,7 @@ Trivia Fever is a fullstack web application that allows users to play trivia gam
 
 ## 🚀 Installation and Usage
 
-Trivia Fever is hosted live at WEBSITE HERE.
+Trivia Fever is hosted live at [trivia-fever.fly.dev/](https://trivia-fever.fly.dev/).
 
 ## 🤝 Contributing
 
