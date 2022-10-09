@@ -1,0 +1,45 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+      - deployment
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          envkey_TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          envkey_SECRET: ${{ secrets.SECRET }}
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_DEBUG: false
+          file_name: .env
+          directory: server
+          fail_on_empty: true
+      - name: Npm install client
+        working-directory: ./client
+        run: npm install
+      - name: Npm install server
+        working-directory: ./server
+        run: npm install
+      - name: Lint client
+        working-directory: ./client
+        run: npm run eslint
+      - name: Lint server
+        working-directory: ./server
+        run: npm run eslint
+      - name: Test client
+        working-directory: ./client
+        run: npm run test
+      - name: Test server
+        working-directory: ./server
+        run: npm run test
