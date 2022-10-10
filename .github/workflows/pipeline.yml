@@ -51,8 +51,21 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Setup flyctl
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Npm install client
+        working-directory: ./client
+        run: npm install
+      - name: Npm install server
+        working-directory: ./server
+        run: npm install
+      - name: Build frontend UI
+        working-directory: ./server
+        run: npm run build:ui
       - name: Deploy to fly.io
         working-directory: ./server
         run: flyctl deploy --remote-only
