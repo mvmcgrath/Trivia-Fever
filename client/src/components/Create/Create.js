@@ -31,7 +31,7 @@ const Create = () => {
   const deleteQuestion = async (question) => {
     try {
       await questionService.deleteQuestion(question.id)
-      setMessage(`You have deleted ${question.title}`)
+      setMessage('You have deleted a question!')
       setQuestions(questions.filter(q => q.id !== question.id))
     } catch (exception) {
       setMessage(exception.response.data.error)
