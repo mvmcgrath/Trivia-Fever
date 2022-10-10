@@ -1,17 +1,19 @@
-name: Deployment pipeline
+name: CI/CD Pipeline
 
-on:
-  push:
-    branches:
-      - master
-      - deployment
+on: [push]
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 jobs:
-  deployment_pipeline:
+  integration_pipeline:
+    name: Integrating Trivia Fever
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
       - name: Create .env file
@@ -43,3 +45,14 @@ jobs:
       - name: Test server
         working-directory: ./server
         run: npm run test
+  deployment_pipeline:
+    name: Deploying Trivia Fever
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to fly.io
+        working-directory: ./server
+        run: flyctl deploy --remote-only
